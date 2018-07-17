@@ -1,0 +1,22 @@
+- name: Install all the rpm packages
+  yum: name={{item}} state=latest
+  with_items:
+   - '@development tools'
+   - openssl-devel
+   - libffi-devel
+ #  - gstreamer-python-devel
+ #  - gstreamer-plugins-base-devel
+ #  - libjpeg-devel
+   - webkitgtk3
+   - python-setuptools
+   - tcsh
+   - tcl
+   - tcl-devel
+   - python-lxml
+   - python-gudev
+   - gpm-libs
+   - expect
+   - glibc.i686
+   - glib
+   - pssh
+   - python-pip

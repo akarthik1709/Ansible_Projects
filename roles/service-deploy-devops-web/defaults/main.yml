@@ -1,0 +1,15 @@
+web_packages:
+  - git
+  - httpd
+  - mod_authnz_pam
+  - php
+  - wget
+  - nfs-utils
+  - mrepo
+  - lftp
+
+www_home: /var/www
+lv_name: coverity
+lv_mount: /var/lib/{{ lv_name }}
+lv_dev_path: /dev/vg_primary/{{ lv_name }}
+lv_fstype: ext4

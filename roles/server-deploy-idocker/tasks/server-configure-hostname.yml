@@ -1,0 +1,5 @@
+---
+- name: setting hostname "{{ idocker_hostname }}"
+  hostname:
+    name: "{{ idocker_hostname }}"
+

@@ -1,0 +1,7 @@
+---
+
+- include: jenkins-user-config.yml
+- include: jenkins-repos-install.yml
+- include: jenkins-backup-mount.yml
+- include: port-forward.yml
+- include: active-directory.yml 

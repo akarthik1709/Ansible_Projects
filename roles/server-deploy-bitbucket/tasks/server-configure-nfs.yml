@@ -1,0 +1,25 @@
+---
+- name: Install "{{ nfs_version }}"
+  yum:
+   name: "{{ nfs_version }}"
+   state: present
+
+
+- name: Ensure NFS required services are running
+  service:
+    name: rpcbind
+    enabled: yes
+    state: started
+
+- name: Create mount point directory /mnt/ENG_Backups
+  file:
+    path: /mnt/ENG_Backups
+    state: directory
+
+- name: Mount NFS ENG_Backups
+  mount:
+    name: /mnt/ENG_Backups
+    src: 10.250.251.50:/ENG_Backups
+    fstype: nfs
+    opts: ro,auto,vers=3,noatime,soft,intr
+    state: mounted

@@ -1,0 +1,45 @@
+---
+
+- name: Create download directory
+  file: path=/root/downloads state=directory
+
+- name: Download mysql repo rpm
+  get_url: 
+    url:  "{{ mysql_repo_url }}"
+    dest: /root/downloads/mysql-community-release-el7-5.noarch.rpm
+    mode: 0440
+
+- name: Install mysql repo rpm
+  yum:
+    name: /root/downloads/mysql-community-release-el7-5.noarch.rpm
+    state: present
+
+
+- name: Yum Installing msql server,client,common,libs and mysql-python
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - "{{ mysql_client }}"
+  - "{{ mysql_libs }}"
+  - "{{ mysql_common }}"
+  - "{{ mysql_server }}"
+  - "{{ mysql_python }}"
+
+- name: Starting mysql service
+  service:
+    name: mysqld
+    state: started
+
+- name: Create a new database for bitbucket
+  mysql_db:
+    name: "{{ mysql_database_name }}"
+    state: present
+
+- mysql_user:
+    name: "{{ mysql_bitbucket_user }}"
+    host: localhost
+    password: '*5C826FA6D6FE92D39DBC56CF396F0FFEBEBDEA3A'
+    encrypted: yes
+    priv: 'vaultbbdatabase.*:ALL'
+    state: present

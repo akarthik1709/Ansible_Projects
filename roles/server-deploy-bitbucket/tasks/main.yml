@@ -1,0 +1,7 @@
+---
+- include: server-configure-hostname.yml
+- include: server-configure-nfs.yml
+- include: server-configure-logvol.yml
+- include: server-install-mysql.yml
+- include: server-install-java.yml
+- include: server-install-git.yml

@@ -1,0 +1,20 @@
+---
+- lvol:
+    vg: vg_primary
+    lv: docker-pool
+    size: +100%FREE
+
+- lineinfile:
+    dest: "/etc/sysconfig/docker-storage"
+    regexp: 'DOCKER_STORAGE_OPTIONS=.*'
+    line: 'DOCKER_STORAGE_OPTIONS="--storage-driver devicemapper --storage-opt dm.fs=xfs --storage-opt dm.thinpooldev=/dev/mapper/vg_primary-docker--pool --storage-opt dm.use_deferred_removal=true --storage-opt dm.basesize=20G"'
+
+- lineinfile:
+    dest: "/etc/sysconfig/docker"
+    regexp: 'OPTIONS=.*'
+    line: 'OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip=192.168.168.1/24"'
+
+- name: restart docker service
+  service:
+    name: docker
+    state: restarted

@@ -1,0 +1,13 @@
+---
+- name: Install "{{ nfs_version }}"
+  yum:
+   name: "{{ nfs_version }}"
+   state: present
+
+
+- name: Ensure NFS required services are running
+  service:
+    name: rpcbind
+    enabled: yes
+    state: started
+

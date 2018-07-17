@@ -1,0 +1,107 @@
+---
+users:
+  - username: cephdp
+    name: "Ceph user"
+    groups: ['cephdp']
+    uid: 2017
+    profile: |
+      alias ll='ls -lah'
+      alias c='clear'
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZTR8CoWrpv371YCZVA8a5XqGm9EDo7t7dw4E5QxV8uraSTqbwaQVWcKm2IllUZqfpMsUIuAsV3imD+uA1ZaD7OvYz5cQsvXy2j3+5iPAhzO0xDdTvhBJSgBSyS0ccsH/RfUpahUzxPL+slyC/waZ1lWLuKixNMgyYIADKrxp+omfU5jCaYU3eyR5t8bl38JxgeMJb7edd7CqOPRygnk/i8Lm0RrSpzHW70WV6uLLNBhTXW1cXFI0hxjX0+rYYFsCNZZNRwbM0MnzwesfUkRif52QQ2qFSJcS0Ph5EeVu8LmMxOQ0QAl2d++PSepunzjRreftsIMIPodZwhMvpUmsF bscott@deimos.eng.idirect.net"
+
+  - username: ansible
+    name: "Ansible user"
+    groups: ['ansible']
+    uid: 2015
+    profile: |
+      alias ll='ls -lah'
+      alias c='clear'
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMwDtAFmO1ALAvlOvYxE/xUGh6mOCgnsVgc5GOAyHh45R3zSW/R4qCTzL79hs+shILaH+KWiFJsl1sJhaiVm1y3jrFG4FvNVQ//AB6NaX671Lq9Ce7oaBsgMkO7Qq/1xLkkNcLUY0OMoBb7PnECZ4pvuPWt34CT4WS7yfGPWxHzogAGOvyoWZPOW0GtgAt+Es8pa8cvw2/zxWy57CUtFAWBpa6YL3sHT280h2Zn5xwpniuMqsGiEdu9uTBFSJqw5voP6SiaQzno5fJzn4uyBH0Yr5Lu1fifpIjGIa3X+GeKjbGtQmWmozq7wBcLmX6Tpni55r+4mbkKPN8MAFY4lTz bscott@deimos.eng.idirect.net"
+
+  - username: qualys
+    name: "Scanning User"
+    groups: ['qualys']
+    uid: 525
+    gid: 525
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDo1/m0zKVTC19uW5A63rX5dcJtPiejEPwSWmmWR74Uz5pUyaf1i79GX1CGRa3NfG3Ti5QnUWF5qswjjuY2O8xfcNPfseA4Mz50eRtrBbiT1kwqwHTt7fs/75f0S2UJu7PDTkyQGMKQKOYPwhRmXt5iqqqDOJOCI85SqkN3RE59qPjZONh6YEsYhKoNjJ4aXWdlRGWTiMIY8bUIfOnrtx2tDCX6t+YncCN+1ftPMe3UEd+OxrRi6hI6QVRRAh5I7coSaTbcTt9hAzFaVOXM2X0YOj+3DwcJnqnZaQ2avCrhJFjdWAbPACssJtKsyFCJ/+ZeDlAEYaM6d0RvPPVoSziP bscott@deimos.eng.idirect.net"
+
+  - username: vjohnson
+    name: "Van Johnson"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1480
+    profile: |
+      alias ll='ls -lah'
+      alias c='clear'
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQvRexEBedAyGYVtONLOvxsy7asjQSIJuuAzoX+2Moqd7kxvEoQ41Bwn7tDovNFdJRMgw58P1za/NDC4pM+1uKjcGOglVkASyDvOYTBtsY7iafMOmvnDHEQP52xD8XqshRRXvzR9TeQPDLgcer2pPW5LNZX6Xwi9MES4zZU+nPKqJKfNu+OybfJ12rJLIZ5RIFQYX+/LhgQT2xk8KGSwXMP3xmgFyxXrosQGKdQkdukD3NzdtZVpZXbi/pVgYenID6gZqQdfuRUeh15WsfeVnDtK0b4VuCXn+SExcLl2n2A79sZ4m3Ou9xIUkJ9QMgB3YLlCR1T4bStYUDxIrx3qaD vjohnson@VJOHNSO-5N64CT1"
+
+  - username: jkhan
+    name: "Jahirul Khan"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1632
+    profile: |
+      alias ll='ls -lah'
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvWXxv8Jb79LPaf7W540SqvDY1yw0NzblKmnfN3TJxgHxOnTXRjSvde3PgFlTCtU1oaKAx1R980mw91Cv/XZvzIZRcIAMqSlTdD2ufUKakheHGLIgmI1vNgzBZxNXPWEJHlyvnVj26UtRnR0BKAOERqisCQei0EKcCCqtMPVLq7j5ryWy3IaYtQbHn/Wg3GA+OAsvmYzxndraFfR7ksBluU/CPQNyA3K98UXe4bqmF3pySGUxRydVbYnQSVlz0KOE9ldwdPiwIIp2D6oCTclJOK1NHrK3ZclCr2pwL4gbypjvNzPjeISc96cgGeX3k++IeB3FWiG4hUXbPyRXf+D7aw== jkhan@jira-dev.idirect.net"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9TTlCGfbyhg9JUZ3t7flDyEKH4f8RAVYt7TYby7YEdcXPur0GIEUldUzAM1XBXuvbNk/wKl7HGNLUfmPXmWlD4vxHVbKRqMM41WbZQyU8BReaAVMbIeC9O/XQQHHCdZNYJQVlEwoSIXG7oSTjjASO4osbI6q2CouayhfhS4DaMDSrAyOakOAseCQrDE2iLZHmriyQccIbwI2ne/HhNBvjxnHFD6qRLkdWODB9xIIYWYN6qWUhiVYQ1VsMlBpwz05josKVyWzdJBXY6gUsEO2ftYxED/AW0ZYuCTKfaSj2+qAyPF0HoEGK5vEfObp9wsq37tfS8wiqsUozcLDbFiu1 jkhan@JKHAN-2X4W4S1"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn19T5b5Blj/+rPB08yBpnizhz2OLUJDY9vb1wqRaWwgM14GPwczxaWDBJmJAg1KpsQ8bEY7j4ke+YXr77z2Y+7xafyfrbtrZnN//RfPpalHO9DOuM/MMDjaNiVvU0v5Jc03FQWSLTV9vd8PLk0jO8cbWBat+de2+x2yMbTaUbLC6vKosYq0tX4CTe0RUtNtjxE0py0gJUaPVCeL+mLHMX7nO842y8F0w5M4/l0CWgfyHD4RShNlq7LqRlidfr+VKY7uk4uHPqqnSH0JJ5gD32TRsFrWQ5OUoImS/PIiBy8CCCoBXHIcV905awtPvQPcNKCyPABnRhli1wYQ6AOkLH jkhan@JKHAN-2X4W4S1"
+
+  - username: rshivareddy
+    name: "Ram Shivareddy"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1757
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD2LQg2VXduz7fJ1DhFwwEFHhCSwp9mIV22F4G7M3ZENigordrsJrGEGhT60QwVHIRsLflgiY85EMjO/SmFLqJStrZciBD56GhMVeVwGjxFTvWYTZZnEKkxC9gQZJYOSyRPsu49ps+kshO1kqsm6ZzDQjRpAe8mveNVWMmGhTpDfxjWoc42C9z4kYDOazAjH8jLuP/t6fn5gYrjZoqmV67OTpH1yS5KzDY1Q5eR1NHtpLhvZnI8wVIl1zMk2/iLozNeQzxagVpvYs5m1w9E+XPIdM5SorROCnxmp+sZbgYgx4KsakqRFv3yH25k4L7ZbsVfaBwABQM7ZN4ZrZO4ZI3 ram@rambuntu.idirect.net"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvUCd5+ViTsQM8W8/hRpRjeXc/Rf0SpD6eDDbQc0WwsGtKCEfqnmR5nK6X9j+2LxlNb5mknPn4MxzyxPaWRXtvOcfh5NaU7P2SVYjauPv9rfQbYX+91VwYf7OkJ0A8vTgcl+ytTcGMv8JZfG/HRYG/OlzjjYVxQgVI3zpibnsysLST5+G4UaFEOaCTmsQv68QLKqsugwzyllgDTUQ7Pg40f1XOkIHqzzp+CmT00TNB3yn9+ylwGoqCsyxgmpxQcON5La9lgyxpRnW8JHM/oGkiP8C0++DU5CIxDRaYicHAeYchH6Gkln3jHPWbnardukpOMcS5VN5sDARgoHpms2iYQ== rshivareddy@ddevops.eng.idirect.net"
+      
+  - username: bscott
+    name: "Brent Scott"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 955
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChaSdwDfmNqf0LLh0OJ6b2pURbTKm3mv5v+IsOPbpmjm4J3+ga5Lj6Lj9MvVNKMM1H4vTQ+IfnCvZYh28Z917BnCj73CCgFtA066ofiz+IR3b5fVwjqvCehKJg7TyL1WUHQMkpyTcru3DRTx5LMVyxUSrtbnb+wPUnttE2WnaCFu5TMQdoD6IIFCANPEt8BW+Z/EHG7E7KyddC/m08lb8Vx6FGBIcchfMYbM4UPc4Ai4eJNeuhdQJ77pKpYpZebQx/VT3NfXP6S/sgehR6yw70Oysswl3e2tHS02deJfjIq5jxpLi7ROF1952gaP75757Y9rBAxUjEv+kEKTGyfRSj bscott@deimos.eng.idirect.net"
+
+  - username: sconvey
+    name: "Simon Convey"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 577
+    ssh_key:
+      - "ssh-dss AAAAB3NzaC1kc3MAAACBAINa/pevQj+FYQFsdK+Yl1uQh70WeyReuFwjlDsrJVdpNOPxCHAqd4lQC8kZWR+59/PJtTzQ4DR+8+YPdSXh1ZrWB+PPHyXFUCllT5YeDFq8/JbPHKNrwSGYklvoiZ4KsyVF4NVLV7tT9ijYxIXuJqA5+cujVgUXcljkT6Fi1MjpAAAAFQCFxi1YTotay4wLeW1L/45qR7X6iQAAAIAbt8NI32bElGuxsNbp9CX1AmxgEzaP6HEs9JYUZKG7fcfExm1iqg6FsVL2q53hPDxr6mSndvShaKwuh5W0kiGiUpsA/EnDqrxymWI5PqPexdWXMH8Xa1bSw8JLytXQkVNpN/FSuWX4UG+Px+0y/M3XOaNLb5s7ThG0YOfubqtPcQAAAIBR7EAGKK51fY7z0JEiON0KuMXvC59YWAuiOnz+A0Y0fYBSuX9Y7lsctuhiKKPkk4gdyDu4d1NvItUi8cFbX5wBKur7cRnIL0XhJGQuy19zZVPslvyD2aagvesmVT1qI3PKhmh6Qb07gZ8iSuHLjItc8DX64s8e5e95OJPfcgMyVA=="
+
+  - username: sangirekula
+    name: "Sailja Angirekula"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1497
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClCHIKgCQLwUCz4BZmPmYtOshHyE7a2vkxA5xoNZsu49IczIZ+XZpvXtopZCxMCWbG1h4BT0c6Tn2maVX03l8HGwnzALfCDxirfxgwUTkx++DWgYNBC3hm7AJP99RipcXiKOCZZXbwT229t37KLH1vTQsIwOaOsrhoH4ziMR9rOV/cr+W9VkAbkwrBKMIjJ2ZLajt/wsUaFvtkKz4sisQB7RZJQklUOMXwTagb9sfGrHyk8noFsM5Pz5JVcxVrTe22k7NUcIyh5PFmp/yCNBG5dRfvY+cPUCp8wgGgqVvyKzi4Uywhx1TIgRXcLwOphUYRR2Xt22gTCZ9BOe3TsUJB sangirekula@SANGIRE-2X4Y4S1"
+
+  - username: dgoade
+    name: "David Goade"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1597
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0iMGNwuc5ydtrihHAjNQ47AJRDq87WZT9CEgJ/SPM1ddE4Rk2Ytp6lYfUtQ4TOHZUrgYUQN4Y8W8NI8lv296D8J0tIXZWdvGW44jWRtoub5hfvKUFmztlsX+hpLowDbPFZ22QBj+kK7kQVf6b3V1e9TEimbO95VZBhF2+gikp+KLzdEyRmcXpPAolBgOwPGi+bmnoAvxgRfHMwDr8BypfRv+lXPHKojGAfzra0h8T3NmSsUxsUMvJWap55Yy4VBbHT9HgurkYCDfeYJ6CY4WCoGT4O+mhj3FfDkJfAZiOWBVC4eeFmN6NI/HhYpB9zLPn23B/UW/Dcl+Hj2GfE4OgvG6/5//difbH7FIt7Rw4xjm5ahlB8Hn7br425JiUGUuPnfsI68p6eWgMCJahJ47AHIHQu5jNn2HtF/ex1YGUUzbo7Qga3eZUsqNokBo+UgOgOmRuGYQeM+ac/E/fWMJu+CPR4gBP7Vp39mn56lC9DHgA5NEAqp7ilmMbmSS1GtP3+oGC3vy7yjVWeEmMOGUKzi2ZojWqOBWIVFEPyGNNlmxSsfs0m/03XFAlacr0t2YcRRdJPh1yXgET0EK7Zjf0al4I6ZNkxfDZMzAPhCXxYTHMjuRjEFKPprPtIYfV/3B3FOAqSgCp0v/iz//4tbytoLwvwiOKfO/9NGhEl/5JbQ== dgoade@idirect.net"
+
+  - username: ldefauw
+    name: "Larry Defauw"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 1432
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChu6qJLksOXKxx8/3UriGSNs/QAlG8i/iTGWAFpiqgSF/9rYDW8S4Fra9E8pMeFMUDph0hdfgLLmo/zg176GYNTDegOIHpXZI3ZXxwXx5Ec5x8Mmp8voR7/cJAfmtrIWhXfGs85PqhPVfI9B9qJdmIZ+oQfJ93hP6UdwgRlY+kABsFxG+ocIKcvfagQzH2/ej6YHdpp5es5kkirWfepy/p4qsuhnhDePcD0aOUUAJLg58FWyIFL9DdO2LofdZqrO9MKSBDPmea4WQ+Hf5qaU4OcCxPJ81d0pyDYHEp/NGunCP26bqRzB/4i+3A8qIqe0aLdkWrf/rHPZtqKNa/e84v ldefauw@LDEFAUW-H1M66S1"
+
+
+  - username: bramireddy
+    name: "Bharat Ramireddy"
+    groups: "{{ ['sudo'] if ansible_os_family =='Debian' else ['wheel'] }}"
+    uid: 508
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXmHJ3a761+lduGn07DkSGWyXXrJswsmtAC1HSIkvPwX7nU9RZJVs0pKf57pG9hm2AoiWBJiIf1zvz34uauAe6B3OPFEDdBA0tqMc0FkC8DW+rLK+fbioF29TPN+mXe3R2g7FQj+Uq7LknpVI0LEBLGvu7mggh2E10LYmEh+JzsyRklNnjBKhr0bzPtDIgv7g4E3ntqGHr2T+z40bz3Ah0rA9IOLchywf/jqbmcMVuzuzFDtxJs9QTI18pVay5mjP+7xUCe5CE6M/gR0MIEBurWyjHjoKdsuu0TO4dE7T/hlcIwPF+dd9DoU+0TwoGMKr+Sgah1uQi3kR4oLL27S0T bramireddy@vausconeyp.idirect.net"
+
+groups_to_create:
+  - name: ansible
+    gid: 2015
+#users_deleted:
+# - username: foo

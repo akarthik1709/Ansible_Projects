@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone>
+  <short>Public</short>
+  <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
+  <service name="dhcpv6-client"/>
+  <service name="ssh"/>
+  <port protocol="tcp" port="443"/>
+  <port protocol="tcp" port="8443"/>
+  <port protocol="tcp" port="80"/>
+  <port protocol="tcp" port="8080"/>
+  <port protocol="tcp" port="81"/>
+  <port protocol="tcp" port="82"/>
+  <port protocol="tcp" port="83"/>
+  <port protocol="tcp" port="84"/>
+  <port protocol="tcp" port="84"/>
+  <port protocol="tcp" port="5666"/>
+  <port protocol="tcp" port="5667"/>
+  <forward-port to-port="8443" protocol="tcp" port="443"/>
+  <forward-port to-port="8080" protocol="tcp" port="80"/>
+</zone>

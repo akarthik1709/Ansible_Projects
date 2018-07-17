@@ -1,0 +1,7 @@
+- include: repo-setup-idirect.yml
+  when: ansible_os_family == "RedHat"
+
+- include: logrotate-syslog.yml
+  when: ansible_os_family == "RedHat"
+
+- include: basic-networking.yml

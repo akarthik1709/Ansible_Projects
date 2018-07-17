@@ -1,0 +1,4 @@
+---
+ - include: server-install-packages.yml
+ - include: server-configure-mount.yml
+ - include: server-configure-jenkins.yml

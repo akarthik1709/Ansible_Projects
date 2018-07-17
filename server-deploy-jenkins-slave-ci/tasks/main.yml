@@ -1,0 +1,71 @@
+---
+# Retaining this since the EPEL repo might be required in the future
+#- name: Add EPEL Artifactory Repo
+#  yum_repository: 
+#    name: artifactory-epel
+#    description: EPEL Repository for $releasever-$basearch
+#    baseurl: http://arm-dev-01.eng.idirect.net:8081/artifactory/epel-{{ ansible_distribution_major_version }}Server-$basearch/
+#    metadata_expire: 1
+#    cost: 1
+#    enabled: yes
+#    gpgcheck: no
+#  when: ansible_os_family == "RedHat"
+
+- name: Install Java OPenJDK
+  yum:
+    name: java-1.8.0-openjdk.x86_64 
+    state: present
+        
+- name: Insatll Git
+  yum:
+    name: git
+    state: latest
+
+- name: Remove JDK7 archive
+  file: path=${jvm_folder}/$jdk_archive state=absent
+  
+ 
+- pause:
+    seconds: 40
+- name: Create .ssh folder
+  file: 
+    path: /home/jenkins/.ssh 
+    state: directory 
+    mode: 0700 
+    owner: jenkins
+- pause:
+    seconds: 6 
+ 
+
+##The Instllation of GIT on the controller
+- name: Clone BitBucket Repo
+  git:
+    repo: ssh://git@vault.idirect.net/testaut/testautomation.git 
+    dest: /home/jenkins/TestAutomation
+    accept_hostkey: yes
+    force: yes
+    update: yes
+    key_file: /home/jenkins/.ssh/id_rsa
+  become_user: jenkins
+
+###These packages are installed for the Jenkins jobs setup for the traffic generation
+- name: Install Python-setuptools
+  yum:
+    name: python-setuptools
+    state: latest
+
+- include: yum_packages.yml
+
+- easy_install:
+    name: pip
+    state: latest
+
+- include: pip_packages.yml 
+
+- name: Install the iRobot Framework
+  pip:
+    name: /home/jenkins/TestAutomation/iRobot/
+
+
+- debug:
+    msg: "You have reached to the end of the playbook...!!!!You can login to your runner and continue with your tasks on it...!!!"

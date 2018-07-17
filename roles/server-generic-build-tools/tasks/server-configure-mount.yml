@@ -1,0 +1,31 @@
+---
+
+- name: Install nfs-utils
+  package:
+    name: "{{ nfs_package }}"
+    state: present
+
+- name: Ensure NFS required services are running
+  service:
+    name: rpcbind
+    enabled: yes
+    state: started
+
+- name: Create mount points for each cross compiler
+  file:
+    path: "{{ opt_directory }}"
+    state: directory
+
+- name: Mount cross compilers
+  mount:
+    name: "{{ opt_directory }}"
+    src: "{{ opt_remote_export }}"
+    fstype: nfs
+    opts: ro,auto,vers=3,noatime,soft,intr
+    state: mounted
+
+- name: Install i686 libraries needed by cross compilers
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ i686_packages }}"

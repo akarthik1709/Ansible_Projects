@@ -1,0 +1,30 @@
+---
+
+- name: Ensure NFS required services are running
+  service:
+    name: rpcbind
+    enabled: yes
+    state: started
+
+  tags:
+    - nfs_mount
+
+- name: Create Jenkins Backup Directory if it doesn't exist
+  file:
+    path: /backups
+    state: directory
+    mode: 0755
+    owner: jenkins
+    group: jenkins
+  tags:
+    - nfs_mount
+  
+- name: Mount ENG_Backups
+  mount:
+    name: /backups
+    src: '10.250.251.50:/ENG_Jenkins/alfred_backups'
+    fstype: nfs
+    opts: rw,auto,vers=3,noatime,soft,intr
+    state: mounted
+  tags:
+    - nfs_mount

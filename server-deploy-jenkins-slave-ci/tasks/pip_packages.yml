@@ -1,0 +1,28 @@
+- name: Install all the pip packages
+  pip: name={{item}} 
+  with_items:
+   - --upgrade pip
+   - -U setuptools
+   - pexpect
+   - paramiko
+   - simplejson
+   - numpy
+   - netifaces
+   - matplotlib
+#   - wxPython
+   - queuelib
+   - graphviz
+   - pycallgraph
+   - sphinx
+   - prettytable
+   - scp
+   - sshtunnel
+   - robotframework
+   - pyyaml
+   - robotframework-sshlibrary-py3
+   - html
+   - termcolor
+   - colored
+   - IPAddress
+   - pssh
+   - ipcalc

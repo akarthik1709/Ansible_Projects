@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Van Johnson
+  description: Basic setup for each iDirect node
+  company: VT iDirect
+
+  license: license (GPLv2, CC-BY, etc)
+
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: CentOS
+    versions:
+    - all
+  - name: Red Hat
+    version:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - trusty

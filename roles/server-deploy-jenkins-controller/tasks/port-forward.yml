@@ -1,0 +1,30 @@
+---
+- name: check if firewalld is installed
+  command: rpm -q firewalld
+  ignore_errors: True
+  register: rpm_check_firewalld
+
+- name: install firewalld
+  yum: name=firewalld state=present enabled=yes
+  when: rpm_check_firewalld.stdout.find('is not installed') != -1
+
+- name: copying firewalld public zone config rules
+  become: true
+  become_method: sudo
+  become_user: root
+  copy:
+    src: files/firewalld_public.xml
+    dest: /etc/firewalld/zones/public.xml
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  register: firewalld
+  ignore_errors: true
+
+- name: restart firewalld
+  become: true
+  become_method: sudo
+  become_user: root
+  service: name=firewalld state=restarted enabled=yes
+  when: firewalld.changed

@@ -1,0 +1,5 @@
+- include: server-install-packages.yml
+- include: server-partition.yml
+- include: server-setup-httpd.yml
+- include: service-configure-httpd.yml
+- include: service-configure-mrepo.yml

@@ -1,0 +1,76 @@
+--- 
+
+- name: Add EPEL Artifactory Repo
+  yum_repository:
+    name: artifactory-epel
+    description: EPEL Repository for $releasever-$basearch
+    baseurl: http://arm-dev-01.eng.idirect.net:8081/artifactory/epel-{{ ansible_distribution_major_version }}Server-$basearch/
+    metadata_expire: 1
+    cost: 1
+    enabled: yes
+    gpgcheck: no
+  when: ansible_os_family == "RedHat"
+
+- name: Add Jenkins controller repository for debugging jenkins
+  yum_repository:
+    name: jenkins
+    description: Jenkins YUM repo
+    baseurl: http://pkg.jenkins-ci.org/redhat
+    gpgcheck: yes
+
+- name: Install Jenkins
+  yum: name={{ item }} state=present
+  with_items:
+    - java-1.8.0-openjdk.x86_64
+    - jenkins-1.658-1.1
+  
+  tags:
+    - jenkins-install
+
+- name: Start Jenkins and set it start as system boots
+  service:
+    name: jenkins
+    state: started
+    enabled: yes
+
+
+- name: Installing required yum packages
+  yum:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - git
+    - graphviz-gd
+    - nfs-utils
+    - nfs-utils-lib
+
+
+- name: Wait for Jenkins to start up before proceeding.
+  shell: "curl -D - --silent --max-time 5 http://localhost:8080/cli/"
+  register: result
+  until: (result.stdout.find("403 Forbidden") != -1) or (result.stdout.find("200 OK") != -1) and (result.stdout.find("Please wait while") == -1)
+  retries: "10"
+  delay: "5"
+  changed_when: false
+
+
+- name: Install plugins and Restart jenkins
+  command: java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080/ install-plugin {{ item }}
+  args:
+    creates: "/var/lib/jenkins/plugins/{{ item }}.jpi"
+  with_items:
+   - build-environment
+   - configurationslicing
+   - depgraph-view
+   - cloudbees-folder
+   - git
+   - groovy
+   - groovy-postbuild
+   - jobConfigHistory
+   - multiple-scms
+   - parameterized-trigger
+   - ws-cleanup
+   - copyartifact
+   - postbuild-task
+  notify: restart jenkins
+

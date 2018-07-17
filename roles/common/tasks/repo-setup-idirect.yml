@@ -1,0 +1,43 @@
+  - name: iDirect rhel repo
+    yum_repository:
+      name: idirect-rhel
+      description: Red Hat Enterprise Linux $releasever repository
+      baseurl: http://repos.eng.idirect.net/mrepo/rhel-{{ ansible_distribution_major_version }}Server-$basearch/RPMS.os/
+      metadata_expire: 1
+      cost: 1
+      enabled: yes
+      gpgcheck: no
+      gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+  - name: Add idirect rhel updates repo
+    yum_repository:
+      name: idirect-rhel-updates
+      description: Red Hat Enterprise Linux Updates repository
+      baseurl: http://repos.eng.idirect.net/mrepo/rhel-{{ ansible_distribution_major_version }}Server-$basearch/RPMS.updates/
+      gpgcheck: no
+      gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+      cost: 1
+      metadata_expire: 1
+      enabled: yes
+
+  - name: Add idirect rhel optional repo
+    yum_repository:
+      name: idirect-rhel-optional
+      description: Red Hat Enterprise Optional Linux repository
+      baseurl: http://repos.eng.idirect.net/mrepo/rhel-{{ ansible_distribution_major_version }}Server-$basearch/RPMS.optional/
+      metadata_expire: 1
+      cost: 1
+      enabled: yes
+      gpgcheck: no
+      gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+
+  - name: Add Local Repos
+    yum_repository:
+      name: idirect-local
+      description: Local and Custom built RPMS
+      baseurl: http://repos.eng.idirect.net/mrepo/rhel-{{ ansible_distribution_major_version }}Server-$basearch/RPMS.local/
+      metadata_expire: 1
+      cost: 1
+      enabled: yes
+      gpgcheck: no

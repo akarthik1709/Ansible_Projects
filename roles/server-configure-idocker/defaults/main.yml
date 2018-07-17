@@ -1,0 +1,3 @@
+---
+jenkins_jobs_git_url: ssh://git@vault.idirect.net/devops/idocker.git
+jenkins_jobs_git_ref: master

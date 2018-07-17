@@ -1,0 +1,112 @@
+# Create Data Partition on Primary Volume
+  - name: Check for Logical Volume
+    command: /sbin/lvdisplay {{ lv_dev_path }}
+    register: lv_result
+    ignore_errors: True
+
+  - name: Create Logical Volume
+    lvol:
+      vg: vg_primary
+      lv: "{{ lv_name }}"
+      force: no
+      shrink: False
+      size: 100%FREE
+      state: present
+    when: lv_result|failed
+
+  - name: Format LV Partition
+    filesystem:
+      fstype: "{{ lv_fstype }}"
+      dev: "{{ lv_dev_path }}"
+
+  - name: Create LV Mount Point
+    file: path={{ lv_mount }} state=directory
+
+  - name: Mount LV Partition
+    mount:
+      name: "{{ lv_mount }}"
+      src: "{{ lv_dev_path }}"
+      fstype: "{{ lv_fstype }}"
+      opts: "defaults"
+      state: mounted
+
+# Create Logical Volume and Partitions on Second Disk
+  - name: Check for mrepo Logical Volume
+    command: "/sbin/lvdisplay /dev/vg_secondary/mrepo"
+    register: mrepo_lv_result
+    ignore_errors: True
+    tags: partition
+
+  - name: Partition Second Disk
+    parted:
+      device: /dev/sdb
+      label: gpt
+      number: 1
+      flags: [ lvm ]
+      state: present
+      part_start: 1049KiB
+      part_end: 100%
+    when: mrepo_lv_result|failed
+    tags: partition
+
+  - name: Create mrepo Volume Group
+    lvg:
+      vg: vg_secondary
+      pvs: /dev/sdb1
+    when: mrepo_lv_result|failed
+    tags: partition
+
+  - name: Create mrepo Logical Volume
+    lvol:
+      vg: vg_secondary
+      lv: mrepo
+      force: no
+      shrink: False
+      size: 100%FREE
+      state: present
+    when: mrepo_lv_result|failed
+    tags: partition
+
+  - name: Format mrepo LV Partition
+    filesystem:
+      fstype: "ext4"
+      dev: "/dev/vg_secondary/mrepo"
+    tags: partition
+
+  - name: Create mrepo LV Mount Point
+    file: path=/var/mrepo state=directory
+    tags: partition
+
+  - name: Mount mrepo LV Partition
+    mount:
+      name: "/var/mrepo"
+      src: "/dev/vg_secondary/mrepo"
+      fstype: "ext4"
+      opts: "defaults"
+      state: mounted
+    tags: partition
+
+# Mount NFS Data Stores
+  - name: Create NFS Mount Points
+    file: path={{ item }} state=directory
+    with_items:
+     - "/srv/components"
+     - "/srv/releases"
+     - "/srv/components-archive"
+     - "/srv/downloads"
+    notify:
+     - restart rpcbind
+     - restart nfslock
+
+  - name: Mount NFS Partitions
+    mount:
+      name: "{{ item.mount }}"
+      src: "{{ item.src }}"
+      fstype: nfs
+      opts: "vers=3,auto,ro,noatime,soft,intr"
+      state: mounted
+    with_items:
+    - { mount: "/srv/components", src: "10.250.251.50:/ENG_Releases" }
+    - { mount: "/srv/components-archive", src: "10.250.251.50:/ENG_Releases_Archive" }
+    - { mount: "/srv/releases", src: "10.250.251.50:/ENG_EVO_Releases" }
+    - { mount: "/srv/downloads", src: "10.250.251.50:/ENG_Downloads/downloads" }

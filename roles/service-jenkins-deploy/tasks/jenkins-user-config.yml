@@ -1,0 +1,76 @@
+---
+
+- name: Ensure sudoers enables wheel group as passwordless
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
+
+- name: Ensure sudoers enables sudo without requiring tty
+  lineinfile: dest=/etc/sudoers regexp="^Defaults(\s+)(.*)requiretty(.*)" line="#Defaults\1\2requiretty\3" backrefs=yes
+
+- name: Create jenkins group
+  group:
+    name: "{{ jenkins_user_group }}"
+    gid: 500 
+    state: present
+
+- name: Create jenkins user
+  user:
+    name: "{{ jenkins_user_name }}"
+    uid: "{{ jenkins_user_uid }}"
+    group: "{{ jenkins_user_group }}"
+    groups: wheel
+    state: present
+    home: "{{ jenkins_user_home }}"
+
+- name: Make key directory
+  file:
+    path: "{{ jenkins_user_home }}/.ssh/"
+    state: directory
+    mode: 0700
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+
+- name: copy private key
+  copy:
+    src: files/jenkins-id_rsa
+    dest: "{{ jenkins_user_home }}/.ssh/id_rsa"
+    force: yes
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+    mode: 0600
+
+- name: copy public key
+  copy:
+    src: files/jenkins-id_rsa.pub
+    dest: "{{ jenkins_user_home }}/.ssh/id_rsa.pub"
+    force: yes
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+    mode: 0600
+
+- name: Copy authorized_keys file
+  copy:
+    src: files/authorized_keys
+    dest: "{{ jenkins_user_home }}/.ssh/authorized_keys"
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+    mode: 0644
+    force: no
+
+- name: Copy known hosts file
+  copy:
+    src: files/known_hosts
+    dest: "{{ jenkins_user_home }}/.ssh/known_hosts"
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+    mode: 0644
+    force: no
+
+# Add a gitconfig so git will not complain about a anonymous user when doing local operations
+- name: Copy gitconfig for jenkins user
+  copy:
+    src: files/gitconfig
+    dest: "{{ jenkins_user_home }}/.gitconfig"
+    owner: "{{ jenkins_user_name }}"
+    group: "{{ jenkins_user_group }}"
+    force: no
+

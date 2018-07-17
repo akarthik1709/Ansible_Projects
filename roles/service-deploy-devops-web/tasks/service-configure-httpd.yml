@@ -1,0 +1,36 @@
+- name: Create HTTP Include Path
+  file: path="/etc/httpd/include" state=directory
+
+- name: Checkout Cavium HT Docs
+  git:
+    repo: git@git.eng.idirect.net:Third_Party/Cavium-HT-Docs
+    dest: /var/www/Cavium-HT-Docs
+    clone: yes
+    accept_hostkey: yes
+    force: yes
+    key_file: /var/www/.ssh/id_rsa
+
+- name: Copy HTTPD and Coverity Configs from Local Repo
+  copy: >
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - { src: "files/apache_configs/vhosts.conf", dest: "/etc/httpd/conf.d" }
+    - { src: "files/apache_configs/mrepo.conf", dest: "/etc/httpd/conf.d" }
+    - { src: "files/apache_include/", dest: "/etc/httpd/include" }
+  notify: 
+    - Restart HTTPD
+  tags:
+    - config_files
+
+- name: Enable HTTPD and Coverity to Startup Automatically
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  with_items:
+    - httpd
+  notify: 
+    - Restart HTTPD

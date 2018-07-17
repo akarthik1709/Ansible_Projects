@@ -1,0 +1,13 @@
+---
+
+- name: Check out jenkins jobs from git
+  git:
+    repo: "{{ jenkins_jobs_git_url }}"
+    version: "{{ jenkins_jobs_git_ref }}"
+    dest: /var/lib/jenkins/jobs
+    accept_hostkey: yes
+    force: no
+    key_file: /var/lib/jenkins/.ssh/id_rsa
+  become: yes
+  become_user: jenkins
+  notify: restart jenkins

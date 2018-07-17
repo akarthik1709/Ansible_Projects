@@ -1,0 +1,5 @@
+---
+- name: installing "{{ git_version }}"
+  yum:
+    name: "{{ git_version }}"
+    state: present

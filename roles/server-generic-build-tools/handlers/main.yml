@@ -1,0 +1,10 @@
+---
+ - name: Restart Network (Debian)
+   service: 
+     name: networking
+     state: restarted
+     
+ - name: Restart Network (RedHat)
+   service:
+     name: network
+     state: restarted

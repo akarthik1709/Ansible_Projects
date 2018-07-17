@@ -1,0 +1,6 @@
+- file:
+    path: /var/atlassian/application-data/bitbucket
+    state: directory
+    mode: 0755
+    owner: atlbitbucket
+    group: atlbitbucket
