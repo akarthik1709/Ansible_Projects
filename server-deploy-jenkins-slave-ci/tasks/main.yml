@@ -62,9 +62,9 @@
 
 - include: pip_packages.yml 
 
-- name: Install the iRobot Framework
+- name: Install the Robot Framework
   pip:
-    name: /home/jenkins/TestAutomation/iRobot/
+    name: /home/jenkins/TestAutomation/Robot/
 
 
 - debug:
