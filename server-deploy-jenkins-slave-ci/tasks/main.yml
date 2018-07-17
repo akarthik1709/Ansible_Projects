@@ -40,7 +40,7 @@
 ##The Instllation of GIT on the controller
 - name: Clone BitBucket Repo
   git:
-    repo: ssh://git@vault.idirect.net/testaut/testautomation.git 
+    repo: <Repository present> 
     dest: /home/jenkins/TestAutomation
     accept_hostkey: yes
     force: yes
