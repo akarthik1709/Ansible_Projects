@@ -1,7 +1,0 @@
----
-- name: Creating builds/workspace for jenkins 
-  file:
-    path: /builds/workspace
-    state: directory
-    owner: jenkins
-    group: jenkins

@@ -1,3 +1,0 @@
-- name: Install Yum Packages
-  yum: name={{ item }} state=latest
-  with_items: "{{ web_packages }}"

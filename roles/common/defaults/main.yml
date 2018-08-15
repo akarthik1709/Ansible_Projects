@@ -1,4 +1,0 @@
----
-dns_nameservers: ['172.20.2.98', '172.20.2.99']
-dns_domain: 'eng.idirect.net'
-dns_search: ['eng.idirect.net', 'idirect.net']

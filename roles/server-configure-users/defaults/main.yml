@@ -1,9 +1,0 @@
----
-users_create_per_user_group: true
-users_group: users
-users_always_update_passwd: true
-users_default_shell: /bin/bash
-users_create_homedirs: true
-users: []
-users_deleted: []
-groups_to_create: []

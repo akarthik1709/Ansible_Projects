@@ -1,7 +1,0 @@
----
-- include: server-configure-components-logvol.yml
-- include: server-configure-docker.yml
-- include: fake-workspace.yml
-- include: ro-components-mount.yml
-- include: git-clone-idocker.yml
-- include: build-pulse-image.yml
