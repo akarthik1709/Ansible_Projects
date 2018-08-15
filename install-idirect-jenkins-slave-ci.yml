@@ -2,11 +2,11 @@
 ######################################################
 ############Steps to run the playbook###################
 ###
-###Step 1: Getting permission from IT to give root access on the target system
+###Step 1: Get into the root of the system to enable permission to configure the ssh
 ###Command :- Change PermitRootLogin in /etc/ssh/sshd_config to yes
 ###
 ###Step 2: Configure the repository to point to the target machine 
-###Commands:- git clone ssh://git@vault.idirect.net/testaut/testautomation.git
+###Commands:- git clone repository name
 ###           git checkout feature/branch
 ###           vi inventory/stg/hosts
 ###           Change the IP Address to the Target IP with the label created in the hosts file
@@ -15,11 +15,7 @@
 ###                               Prompt for the SSH Password:- When the SSH password pops up, give in the root password for that
 ###                               Prompt for the Vault Password:- When the vault password pops up, give in the vault password locally created (Please refer to the README.md to create a local vault)
 ###Commands:- Running the playbook.
-###           ansible-playbook -i inventory/stg -u root --ask-pass install-idirect-jenkins-controller_slave.yml   --ask-vault-pass  -vvvv
-###
-###Step 4: Contact IT to disable root permissions
-###
-###Note:- Once root permissions are disabled, other root privileges can be given by elevating the user permissions to sudo
+###           ansible-playbook -i inventory/stg -u root --ask-pass playbook name   --ask-vault-pass  -vvvv
 
 - hosts: PIT_TEST_host_SLAVE 
   #hosts: test1-test-build
