@@ -1,16 +1,4 @@
 ---
-# Retaining this since the EPEL repo might be required in the future
-#- name: Add EPEL Artifactory Repo
-#  yum_repository: 
-#    name: artifactory-epel
-#    description: EPEL Repository for $releasever-$basearch
-#    baseurl: http://arm-dev-01.eng.idirect.net:8081/artifactory/epel-{{ ansible_distribution_major_version }}Server-$basearch/
-#    metadata_expire: 1
-#    cost: 1
-#    enabled: yes
-#    gpgcheck: no
-#  when: ansible_os_family == "RedHat"
-
 - name: Install Java OPenJDK
   yum:
     name: java-1.8.0-openjdk.x86_64 
@@ -37,11 +25,11 @@
     seconds: 6 
  
 
-##The Instllation of GIT on the controller
-- name: Clone BitBucket Repo
+##The Instllation of GIT on the controller This also contains the private and the public key setup for the jenkins
+- name: Clone the Repo
   git:
     repo: <Repository present> 
-    dest: /home/jenkins/TestAutomation
+    dest: /home/jenkins/Temporary_Repository
     accept_hostkey: yes
     force: yes
     update: yes
@@ -64,7 +52,7 @@
 
 - name: Install the Robot Framework
   pip:
-    name: /home/jenkins/TestAutomation/Robot/
+    name: /home/jenkins/Temporary_Repository/Robot/
 
 
 - debug:
