@@ -1,4 +1,0 @@
----
-dependencies:
-  - server-configure-jenkins-user
-  - server-deploy-developer-jenkins-controller

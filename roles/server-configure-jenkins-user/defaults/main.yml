@@ -1,6 +1,0 @@
----
-jenkins_user_name: jenkins
-jenkins_user_group: jenkins
-jenkins_user_uid: 500
-jenkins_user_gid: 500
-jenkins_user_home: /var/lib/jenkins
