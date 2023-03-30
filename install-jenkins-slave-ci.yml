@@ -17,8 +17,7 @@
 ###Commands:- Running the playbook.
 ###           ansible-playbook -i inventory/stg -u root --ask-pass playbook name   --ask-vault-pass  -vvvv
 
-- hosts: PIT_TEST_host_SLAVE 
-  #hosts: test1-test-build
+- hosts: host_slave_node
   become: yes
   remote_user: root 
   become_method: sudo
